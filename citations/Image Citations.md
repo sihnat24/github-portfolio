@@ -8,3 +8,5 @@ columbia.png - UCR-education-logo-Columbia-University.png | Undergraduate admiss
 
 URMC.png - University of Rochester. (n.d.). University of Rochester logo on logonoid.com. https://logonoid.com/university-of-rochester-logo/  
 
+AQ_lab.png - AQ Laboratory. (n.d.). GitHub. https://github.com/aqlaboratory
+
