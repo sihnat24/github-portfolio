@@ -1,1 +1,1 @@
-This is currently being developed! Stay tuned!
+This is a work in progress. Stay tuned!
