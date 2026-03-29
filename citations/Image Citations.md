@@ -10,3 +10,8 @@ URMC.png - University of Rochester. (n.d.). University of Rochester logo on logo
 
 AQ_lab.png - AQ Laboratory. (n.d.). GitHub. https://github.com/aqlaboratory
 
+
+# new citations
+
+https://www.rcsb.org/structure/1GYF
+

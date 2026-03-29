@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Title — Severin Ihnat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Outfit:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="project.css" />
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="/">SI<span>.</span></a>
+  <a class="nav-back" href="/#projects">← Back to projects</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="proj-hero reveal">
+    <div class="proj-hero-text">
+      <p class="proj-meta">Category · Year–present</p>
+      <h1 class="proj-title">Project<br /><em>Title</em></h1>
+      <div class="proj-tags">
+        <span class="proj-tag">Tag</span>
+        <span class="proj-tag">Tag</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="sec">
+    <div class="wrap" style="padding:0">
+      <p class="eyebrow reveal">Overview</p>
+      <h2 class="sec-title reveal rd1">What it is <em>&amp; why</em></h2>
+      <div class="body-text reveal rd2">
+        <p>Describe the core motivation and problem being solved.</p>
+        <p>Explain why this problem is worth solving in the target domain.</p>
+        <p>Describe the dataset, scope, or context of the work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL APPROACH -->
+  <section class="sec">
+    <div class="wrap" style="padding:0">
+      <p class="eyebrow reveal">Technical Approach</p>
+      <h2 class="sec-title reveal rd1">Architecture &amp; <em>decisions</em></h2>
+      <div class="body-text reveal rd2">
+        <p>Describe the architecture and key design choices.</p>
+        <p>Explain tradeoffs or alternatives considered.</p>
+        <p>Describe the hardest part and how it was resolved.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="sec">
+    <div class="wrap" style="padding:0">
+      <p class="eyebrow reveal">Results</p>
+      <h2 class="sec-title reveal rd1">Outcomes &amp; <em>metrics</em></h2>
+      <div class="body-text reveal rd2">
+        <p>Lead with a concrete metric or outcome.</p>
+        <p>Describe what was learned or what worked well.</p>
+        <p>Mention next steps or current status.</p>
+      </div>
+      <!-- Add/remove result-img blocks as needed. Set src or remove img and keep placeholder. -->
+      <div class="result-images reveal rd3">
+        <div class="result-img">
+          <img src="../img/your-image.png" alt="Description" />
+          <!-- fallback if image is missing: -->
+          <!-- <div class="result-img-placeholder"><div class="rip-label">image label</div></div> -->
+        </div>
+        <div class="result-img">
+          <div class="result-img-placeholder"><div class="rip-label">image label</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINKS — omit entire section if no links -->
+  <section class="sec">
+    <div class="wrap" style="padding:0">
+      <p class="eyebrow reveal">Links</p>
+      <h2 class="sec-title reveal rd1">Code &amp; <em>resources</em></h2>
+      <div class="link-row reveal rd2">
+        <a class="btn-solid" href="https://github.com/sihnat24/repo" target="_blank">GitHub →</a>
+        <!-- <a class="btn-ghost" href="#" target="_blank">Paper →</a> -->
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2025 Severin Ihnat</p>
+  <p>New York City</p>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+  const obs = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }),
+    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

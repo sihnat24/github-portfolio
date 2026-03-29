@@ -46,7 +46,7 @@
     @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
 
     h1.hero-name { font-family: var(--fs); font-size: clamp(3.4rem, 8.5vw, 6.8rem); font-weight: 800; line-height: 0.94; letter-spacing: -0.03em; color: var(--text); opacity: 0; animation: up 0.65s ease 0.18s forwards; }
-    h1.hero-name em { font-style: italic; font-weight: 400; color: var(--accent); }
+    h1.hero-name em { font-style: normal; }
 
     .hero-sub { margin-top: 1.75rem; max-width: 480px; font-size: 1rem; font-weight: 400; color: var(--text-mid); line-height: 1.8; opacity: 0; animation: up 0.6s ease 0.34s forwards; }
 
@@ -61,7 +61,17 @@
     .sec { padding: 5.5rem 0; border-top: 1px solid var(--border); }
     .eyebrow { font-family: var(--fm); font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
     .sec-title { font-family: var(--fs); font-size: clamp(1.85rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; color: var(--text); margin-bottom: 2.75rem; }
-    .sec-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .sec-title em { font-style: normal; }
+
+    /* CURRENT */
+    .now-rows { display: flex; flex-direction: column; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .now-row { display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; padding: 1.1rem 1.5rem; }
+    .now-row + .now-row { border-top: 1px solid var(--border); }
+    .now-left { display: flex; align-items: baseline; gap: 1.25rem; }
+    .now-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; position: relative; top: -0.15rem; }
+    .now-role { font-size: 0.97rem; font-weight: 600; color: var(--text); }
+    .now-org { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; }
+    .now-badge { font-family: var(--fm); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 20px; background: var(--accent-dim2); border: 1px solid var(--accent-dim); color: var(--accent); white-space: nowrap; }
 
     /* ABOUT */
     .about-cols { display: grid; grid-template-columns: 3fr 2fr; gap: 4.5rem; align-items: start; }
@@ -73,31 +83,37 @@
     .chip { font-size: 0.77rem; font-weight: 500; padding: 0.27rem 0.65rem; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-mid); transition: border-color 0.2s, color 0.2s; }
     .chip:hover { border-color: var(--accent); color: var(--text); }
 
+    .proj-hint { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--text-soft); margin-top: -2rem; margin-bottom: 2.75rem; }
+
     /* FEATURED CARDS */
     .featured-projects { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1.5rem; }
-    .feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 1fr 300px; transition: border-color 0.25s; cursor: default; }
+    .feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 1fr 300px; transition: border-color 0.25s; cursor: pointer; text-decoration: none; color: inherit; }
     .feat-card:hover { border-color: var(--border2); }
+    .feat-card:hover .feat-title { color: var(--accent); transition: color 0.2s; }
     .feat-body { padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .feat-view { font-family: var(--fm); font-size: 0.63rem; letter-spacing: 0.06em; color: var(--accent); margin-top: 1rem; opacity: 0; transition: opacity 0.2s, transform 0.2s; transform: translateX(-4px); display: block; }
+    .feat-card:hover .feat-view { opacity: 1; transform: none; }
     .feat-meta { font-family: var(--fm); font-size: 0.63rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.6rem; }
     .feat-title { font-family: var(--fs); font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.65rem; line-height: 1.2; }
     .feat-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.75; flex: 1; margin-bottom: 1.25rem; font-weight: 300; }
     .feat-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
     .feat-tag { font-family: var(--fm); font-size: 0.62rem; padding: 0.2rem 0.55rem; background: var(--accent-dim2); border: 1px solid var(--accent-dim); color: var(--accent); border-radius: 4px; letter-spacing: 0.03em; }
-    .feat-img { background: var(--bg3); border-left: 1px solid var(--border); overflow: hidden; min-height: 220px; }
+    .feat-img { background: var(--bg3); border-left: 1px solid var(--border); overflow: hidden; aspect-ratio: 5 / 4; }
     .feat-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .feat-img--kalshi { aspect-ratio: 1 / 1; }
     .feat-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.5rem; text-align: center; }
     .fip-icon { font-size: 2rem; opacity: 0.2; }
     .fip-label { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); line-height: 1.6; }
 
     /* LISTED PROJECTS */
     .listed-projects { display: flex; flex-direction: column; }
-    .list-divider { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); padding: 1.5rem 0 1rem; border-top: 1px solid var(--border); }
+    .list-divider { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); padding: 1.5rem 0 1rem; }
     .proj-row { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; padding: 1.5rem 0; border-top: 1px solid var(--border); cursor: default; }
-    .proj-row:last-child { border-bottom: 1px solid var(--border); }
+    .proj-row:last-child { border-bottom: none; }
     .pr-meta { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.35rem; }
-    .pr-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.45rem; transition: color 0.2s; }
+    .pr-title { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.45rem; transition: color 0.2s; }
     .proj-row:hover .pr-title { color: var(--accent); }
-    .pr-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0.7rem; font-weight: 300; }
+    .pr-desc { font-size: 0.92rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0.7rem; font-weight: 300; }
     .pr-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
     .pr-tag { font-family: var(--fm); font-size: 0.6rem; padding: 0.17rem 0.5rem; background: var(--bg); border: 1px solid var(--border); color: var(--text-soft); border-radius: 4px; }
     .pr-arrow { color: var(--text-soft); font-size: 1rem; opacity: 0; transition: opacity 0.2s, transform 0.2s; padding-top: 0.2rem; }
@@ -105,7 +121,7 @@
 
     /* EXPERIENCE */
     .exp-row { display: grid; grid-template-columns: 110px 1fr; gap: 2.5rem; padding: 2rem 0; border-top: 1px solid var(--border); }
-    .exp-row:last-child { border-bottom: 1px solid var(--border); }
+    .exp-row:last-child { border-bottom: none; }
     .er-date { font-family: var(--fm); font-size: 0.65rem; color: var(--text-soft); letter-spacing: 0.04em; padding-top: 0.2rem; }
     .er-role { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
     .er-org { font-size: 0.77rem; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
@@ -114,7 +130,7 @@
     /* CONTACT */
     .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
     .contact-head { font-family: var(--fs); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.05; color: var(--text); margin-bottom: 1.25rem; }
-    .contact-head em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .contact-head em { font-style: normal; }
     .contact-copy { font-size: 0.92rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
     .contact-links { display: flex; flex-direction: column; }
     .cl { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; border-top: 1px solid var(--border); text-decoration: none; }
@@ -140,7 +156,7 @@
       nav, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
       .wrap { padding: 0 1.25rem; }
       .feat-card { grid-template-columns: 1fr; }
-      .feat-img { min-height: 180px; border-left: none; border-top: 1px solid var(--border); }
+      .feat-img { aspect-ratio: 5 / 4; border-left: none; border-top: 1px solid var(--border); }
       .about-cols, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
       .exp-row { grid-template-columns: 1fr; gap: 0.25rem; }
       nav .nav-links li:nth-child(n+4) { display: none; }
@@ -152,6 +168,7 @@
 <nav id="nav">
   <a class="nav-logo" href="#hero">SI<span>.</span></a>
   <ul class="nav-links">
+    <li><a href="#now">Now</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -163,10 +180,40 @@
 <section id="hero">
   <div class="hero-tag"><span class="hero-dot"></span>ML Engineer · Columbia MSCS '26 · New York</div>
   <h1 class="hero-name">Severin<br /><em>Ihnat</em></h1>
-  <p class="hero-sub">Computer vision, continual learning, and data systems — built to run in production, not just notebooks.</p>
+  <p class="hero-sub">Machine learning, computer vision, and data systems. Building effective solutions!</p>
   <div class="hero-btns">
     <a href="#projects" class="btn-solid">See projects</a>
     <a href="/resume.pdf" class="btn-ghost">Resume</a>
+  </div>
+</section>
+
+<!-- CURRENT -->
+<section id="now">
+  <div class="wrap sec" style="padding-top: 2rem">
+    <p class="eyebrow reveal">Now</p>
+    <h2 class="sec-title reveal rd1">Current <em>roles</em></h2>
+    <div class="now-rows reveal rd2">
+      <div class="now-row">
+        <div class="now-left">
+          <span class="now-dot"></span>
+          <div>
+            <div class="now-role">M.S. Computer Science</div>
+            <div class="now-org">Columbia University · graduating May 2026</div>
+          </div>
+        </div>
+        <span class="now-badge">Student</span>
+      </div>
+      <div class="now-row">
+        <div class="now-left">
+          <span class="now-dot"></span>
+          <div>
+            <div class="now-role">Graduate Research Assistant</div>
+            <div class="now-org">Columbia University · Alquraishi Lab</div>
+          </div>
+        </div>
+        <span class="now-badge">Research</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -178,7 +225,7 @@
     <div class="about-cols">
       <div class="about-body reveal rd2">
         <p>MSCS student at <strong>Columbia University</strong>, graduating May 2026. Undergraduate background in biomedical engineering at the University of Rochester — which means I think about models in terms of reliability and failure modes, not just benchmark numbers.</p>
-        <p>Currently doing research on <strong>continual active learning for protein-peptide binding prediction</strong>. Targeting full-time roles in defense ML and autonomy.</p>
+        <p>Currently doing research on applying <strong>continual and active learning techniques</strong> to protein-peptide binding prediction. Targeting full-time roles in biotech, defense ML and autonomy.</p>
       </div>
       <div class="about-skills reveal rd3">
         <div class="sk-group">
@@ -213,15 +260,16 @@
   <div class="wrap sec">
     <p class="eyebrow reveal">Projects</p>
     <h2 class="sec-title reveal rd1">Selected work</h2>
+    <p class="proj-hint reveal rd2">Click any card to explore the full writeup.</p>
 
     <div class="featured-projects">
 
-      <div class="feat-card reveal">
+      <a class="feat-card reveal" href="/projects/drone.html">
         <div class="feat-body">
           <div>
             <p class="feat-meta">Computer Vision · 2024–present</p>
             <p class="feat-title">Drone Detection Pipeline</p>
-            <p class="feat-desc">YOLOv8 object detection trained on the VisDrone dataset. Built an agentic training loop that automates hyperparameter search, submits overnight runs, and logs results to W&amp;B — minimal manual intervention between experiments.</p>
+            <p class="feat-desc">Autonomous hyperparameter search pipeline for YOLOv8 on VisDrone — Claude Code iterates experiments, scores via a locked metric, and commits or reverts based on results..</p>
           </div>
           <div class="feat-tags">
             <span class="feat-tag">YOLOv8</span>
@@ -229,17 +277,18 @@
             <span class="feat-tag">W&amp;B</span>
             <span class="feat-tag">VisDrone</span>
           </div>
+          <span class="feat-view">View project →</span>
         </div>
         <div class="feat-img">
-          <!-- <img src="img/drone-detection.jpg" alt="YOLOv8 detection output on VisDrone frame" /> -->
+          <img src="img/visdrone ex.png" alt="YOLOv8 detection output on VisDrone frame" >
           <div class="feat-img-placeholder">
             <div class="fip-icon">⬚</div>
             <div class="fip-label">runs/detect/predict/</div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="feat-card reveal rd1">
+      <a class="feat-card reveal rd1" href="/projects/kalshi.html">
         <div class="feat-body">
           <div>
             <p class="feat-meta">ML / Quant · 2024–present</p>
@@ -253,17 +302,18 @@
             <span class="feat-tag">Grafana</span>
             <span class="feat-tag">WebSocket</span>
           </div>
+          <span class="feat-view">View project →</span>
         </div>
-        <div class="feat-img">
-          <!-- <img src="img/grafana.png" alt="Grafana dashboard — live Kalshi data pipeline" /> -->
+        <div class="feat-img feat-img--kalshi">
+          <img src="img/grafana.png" alt="Grafana dashboard — live Kalshi data pipeline" />
           <div class="feat-img-placeholder">
             <div class="fip-icon">⬚</div>
             <div class="fip-label">Grafana screenshot</div>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="feat-card reveal rd2">
+      <a class="feat-card reveal rd2" href="/projects/cal.html">
         <div class="feat-body">
           <div>
             <p class="feat-meta">Research · Columbia · 2024–present</p>
@@ -276,20 +326,21 @@
             <span class="feat-tag">SLURM / HPC</span>
             <span class="feat-tag">Python</span>
           </div>
+          <span class="feat-view">View project →</span>
         </div>
         <div class="feat-img">
-          <!-- <img src="img/cal-heatmap.png" alt="AL/CL budget sweep heatmap" /> -->
+          <img src="img/heatmap.png" alt="3D structure of GYF protein binding domain" />
           <div class="feat-img-placeholder">
             <div class="fip-icon">⬚</div>
             <div class="fip-label">Heatmap / W&amp;B run</div>
           </div>
         </div>
-      </div>
+      </a>
 
     </div>
 
     <div class="listed-projects reveal rd3">
-      <p class="list-divider">Also</p>
+      <p class="list-divider">Other work</p>
 
       <div class="proj-row">
         <div>
@@ -335,7 +386,7 @@
         <div class="er-date">2024–present</div>
         <div>
           <p class="er-role">Graduate Research Assistant</p>
-          <p class="er-org">Columbia University — Zuckerman Institute</p>
+          <p class="er-org">Columbia University — Alquraishi Lab</p>
           <p class="er-desc">Building a continual active learning framework for protein-peptide binding prediction. Experiment scheduling via SLURM on Columbia's HPC cluster; sweeps AL/CL budget ratios across GYF and WH1 protein domains.</p>
         </div>
       </div>
@@ -365,7 +416,7 @@
     <p class="eyebrow reveal">Contact</p>
     <div class="contact-layout">
       <div class="reveal rd1">
-        <h2 class="contact-head">Get in<br /><em>touch.</em></h2>
+        <h2 class="contact-head">Get in touch </h2>
         <p class="contact-copy">Open to full-time roles in defense ML, autonomy, and applied AI — starting May 2026.</p>
       </div>
       <div class="contact-links reveal rd2">
@@ -373,12 +424,12 @@
           <div><div class="cl-name">Email</div><div class="cl-sub">si2471@columbia.edu</div></div>
           <span class="cl-arr">↗</span>
         </a>
-        <a class="cl" href="https://linkedin.com/in/severinihnat" target="_blank">
-          <div><div class="cl-name">LinkedIn</div><div class="cl-sub">linkedin.com/in/severinihnat</div></div>
+        <a class="cl" href="https://www.linkedin.com/in/severin-ihnat/" target="_blank">
+          <div><div class="cl-name">LinkedIn</div><div class="cl-sub">https://www.linkedin.com/in/severin-ihnat/</div></div>
           <span class="cl-arr">↗</span>
         </a>
-        <a class="cl" href="https://github.com/severinihnat" target="_blank">
-          <div><div class="cl-name">GitHub</div><div class="cl-sub">github.com/severinihnat</div></div>
+        <a class="cl" href="https://github.com/sihnat24" target="_blank">
+          <div><div class="cl-name">GitHub</div><div class="cl-sub">https://github.com/sihnat24</div></div>
           <span class="cl-arr">↗</span>
         </a>
         <a class="cl" href="/resume.pdf" target="_blank">
