@@ -1,260 +1,409 @@
-<!-- 
-  This template is designed and developed by Nisar Hassan Naqvi
-  for anyone to use for free or customize the way they like.
--->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" type="image/png" href="./images/favicon.png" />
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Outfit:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <title>
-    Severin Ihnat | Graduate Machine Learning Researcher and Software Developer.
-  </title>
+    :root {
+      --bg:          #f5f0e8;
+      --bg2:         #ede7d9;
+      --bg3:         #e5dece;
+      --border:      rgba(28,22,14,0.1);
+      --border2:     rgba(28,22,14,0.2);
+      --text:        #1c160e;
+      --text-mid:    #5a5045;
+      --text-soft:   #a8998a;
+      --accent:      #c4603a;
+      --accent-dim:  rgba(196,96,58,0.12);
+      --accent-dim2: rgba(196,96,58,0.06);
+      --fd: 'Outfit', sans-serif;
+      --fs: 'Playfair Display', serif;
+      --fm: 'DM Mono', monospace;
+    }
 
-  <meta name="description" content="BME gradute of University of Rochester, transitioning into CS @ Columbia University.">
-  <meta name="keywords" content="Severin Ihnat, Data Science, Machine Learning, Python, Java, Database Creation, MATLAB" />
-  <link rel="stylesheet" href="index.css" />
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--fd); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 58px; padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s; }
+    nav.scrolled { background: rgba(245,240,232,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-weight: 800; font-size: 1rem; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    #hero { min-height: 100vh; max-width: 860px; margin: 0 auto; padding: 0 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--fm); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 2rem; opacity: 0; animation: up 0.45s ease 0.05s forwards; }
+    .hero-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 2.4s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+    h1.hero-name { font-family: var(--fs); font-size: clamp(3.4rem, 8.5vw, 6.8rem); font-weight: 800; line-height: 0.94; letter-spacing: -0.03em; color: var(--text); opacity: 0; animation: up 0.65s ease 0.18s forwards; }
+    h1.hero-name em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+    .hero-sub { margin-top: 1.75rem; max-width: 480px; font-size: 1rem; font-weight: 400; color: var(--text-mid); line-height: 1.8; opacity: 0; animation: up 0.6s ease 0.34s forwards; }
+
+    .hero-btns { margin-top: 2.25rem; display: flex; gap: 0.8rem; flex-wrap: wrap; opacity: 0; animation: up 0.5s ease 0.48s forwards; }
+    .btn-solid { padding: 0.7rem 1.6rem; background: var(--accent); color: #fff; font-size: 0.83rem; font-weight: 700; border-radius: 8px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .btn-solid:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-ghost { padding: 0.7rem 1.6rem; border: 1.5px solid var(--border2); color: var(--text-mid); font-size: 0.83rem; font-weight: 500; border-radius: 8px; text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.15s; }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* SHARED */
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+    .sec { padding: 5.5rem 0; border-top: 1px solid var(--border); }
+    .eyebrow { font-family: var(--fm); font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .sec-title { font-family: var(--fs); font-size: clamp(1.85rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; color: var(--text); margin-bottom: 2.75rem; }
+    .sec-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+    /* ABOUT */
+    .about-cols { display: grid; grid-template-columns: 3fr 2fr; gap: 4.5rem; align-items: start; }
+    .about-body p { font-size: 0.97rem; color: var(--text-mid); line-height: 1.85; margin-bottom: 1.1rem; font-weight: 300; }
+    .about-body strong { color: var(--text); font-weight: 600; }
+    .sk-group { margin-bottom: 1.5rem; }
+    .sk-label { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.55rem; }
+    .sk-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .chip { font-size: 0.77rem; font-weight: 500; padding: 0.27rem 0.65rem; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-mid); transition: border-color 0.2s, color 0.2s; }
+    .chip:hover { border-color: var(--accent); color: var(--text); }
+
+    /* FEATURED CARDS */
+    .featured-projects { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 1fr 300px; transition: border-color 0.25s; cursor: default; }
+    .feat-card:hover { border-color: var(--border2); }
+    .feat-body { padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .feat-meta { font-family: var(--fm); font-size: 0.63rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.6rem; }
+    .feat-title { font-family: var(--fs); font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.65rem; line-height: 1.2; }
+    .feat-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.75; flex: 1; margin-bottom: 1.25rem; font-weight: 300; }
+    .feat-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .feat-tag { font-family: var(--fm); font-size: 0.62rem; padding: 0.2rem 0.55rem; background: var(--accent-dim2); border: 1px solid var(--accent-dim); color: var(--accent); border-radius: 4px; letter-spacing: 0.03em; }
+    .feat-img { background: var(--bg3); border-left: 1px solid var(--border); overflow: hidden; min-height: 220px; }
+    .feat-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .feat-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.5rem; text-align: center; }
+    .fip-icon { font-size: 2rem; opacity: 0.2; }
+    .fip-label { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); line-height: 1.6; }
+
+    /* LISTED PROJECTS */
+    .listed-projects { display: flex; flex-direction: column; }
+    .list-divider { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); padding: 1.5rem 0 1rem; border-top: 1px solid var(--border); }
+    .proj-row { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; padding: 1.5rem 0; border-top: 1px solid var(--border); cursor: default; }
+    .proj-row:last-child { border-bottom: 1px solid var(--border); }
+    .pr-meta { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.35rem; }
+    .pr-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.45rem; transition: color 0.2s; }
+    .proj-row:hover .pr-title { color: var(--accent); }
+    .pr-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0.7rem; font-weight: 300; }
+    .pr-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .pr-tag { font-family: var(--fm); font-size: 0.6rem; padding: 0.17rem 0.5rem; background: var(--bg); border: 1px solid var(--border); color: var(--text-soft); border-radius: 4px; }
+    .pr-arrow { color: var(--text-soft); font-size: 1rem; opacity: 0; transition: opacity 0.2s, transform 0.2s; padding-top: 0.2rem; }
+    .proj-row:hover .pr-arrow { opacity: 1; transform: translate(2px,-2px); color: var(--accent); }
+
+    /* EXPERIENCE */
+    .exp-row { display: grid; grid-template-columns: 110px 1fr; gap: 2.5rem; padding: 2rem 0; border-top: 1px solid var(--border); }
+    .exp-row:last-child { border-bottom: 1px solid var(--border); }
+    .er-date { font-family: var(--fm); font-size: 0.65rem; color: var(--text-soft); letter-spacing: 0.04em; padding-top: 0.2rem; }
+    .er-role { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+    .er-org { font-size: 0.77rem; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
+    .er-desc { font-size: 0.86rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+
+    /* CONTACT */
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-head { font-family: var(--fs); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.05; color: var(--text); margin-bottom: 1.25rem; }
+    .contact-head em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .contact-copy { font-size: 0.92rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+    .contact-links { display: flex; flex-direction: column; }
+    .cl { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; border-top: 1px solid var(--border); text-decoration: none; }
+    .cl:last-child { border-bottom: 1px solid var(--border); }
+    .cl-name { font-size: 0.97rem; font-weight: 700; color: var(--text); transition: color 0.2s; }
+    .cl:hover .cl-name { color: var(--accent); }
+    .cl-sub { font-family: var(--fm); font-size: 0.6rem; color: var(--text-soft); margin-top: 0.12rem; letter-spacing: 0.04em; }
+    .cl-arr { color: var(--text-soft); transition: color 0.2s, transform 0.2s; }
+    .cl:hover .cl-arr { color: var(--accent); transform: translate(3px,-3px); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 1.75rem 2.5rem; max-width: 860px; margin: 0 auto; display: flex; justify-content: space-between; }
+    footer p { font-family: var(--fm); font-size: 0.6rem; color: var(--text-soft); letter-spacing: 0.06em; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rd1 { transition-delay: 0.07s; } .rd2 { transition-delay: 0.14s; } .rd3 { transition-delay: 0.21s; }
+    @keyframes up { to { opacity: 1; transform: none; } }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      nav, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .wrap { padding: 0 1.25rem; }
+      .feat-card { grid-template-columns: 1fr; }
+      .feat-img { min-height: 180px; border-left: none; border-top: 1px solid var(--border); }
+      .about-cols, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-row { grid-template-columns: 1fr; gap: 0.25rem; }
+      nav .nav-links li:nth-child(n+4) { display: none; }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- ***** Header ***** -->
-  <header class="header" role="banner" id="top">
-    <div class="row">
-      <nav class="nav" role="navigation">
-        <ul class="nav__items">
-          <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-          <li class="nav__item"><a href="#clients" class="nav__link">Organizations</a></li>
-          <li class="nav__item">
-            <a href="#about" class="nav__link">About</a>
-          </li>
-          <li class="nav__item">
-            <a href="#contact" class="nav__link">Contact</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="header__text-box row">
-      <div class="header__text">
-        <h1 class="heading-primary">
-          <span>Severin Ihnat</span>
-        </h1>
-        <p> Machine Learning Graduate Researcher @ Columbia University</p>
-        <a href="#contact" class="btn btn--pink">Get in touch</a>
-      </div>
-    </div>
-  </header>
+<nav id="nav">
+  <a class="nav-logo" href="#hero">SI<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <main role="main">
-
-    <!-- ***** Work ***** -->
-    <section class="work" id="work">
-      <div class="row">
-        <h2>My Projects</h2>
-        <div class="work__boxes">
-    
-          <!-- NBA Linear Regression + Scraper -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>NBA Linear Regression + Scraper</h3>
-              <p>
-                Basketball Reference Scraper and Linear Regression Model.
-              </p>
-              <ul class="work__list">
-                <li>Python</li>
-                <li>Pandas</li>
-                <li>BeautifulSoup</li>
-                <li>Scipy</li>
-              </ul>
-    
-              <div class="work__links">
-                <a href="https://github.com/sihnat24/NBA-Points-LRM" target="_blank" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/sihnat24/NBA-Points-LRM" title="View Source Code" target="_blank">
-                  <img src="./images/github.svg" class="work__code" alt="GitHub">
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/NBA.png" class="work__image" alt="Project 1" />
-            </div>
-          </div>
-    
-          <!-- Ultrasound Image Generator -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Ultrasound Image Generator</h3>
-              <p>
-                Uses beamforming techniques to reconstruct high-resolution 
-                images from data collected by a circular array of ultrasound transducers,
-                improving image accuracy and reducing runtime.
-              </p>
-              <ul class="work__list">
-                <li>MATLAB</li>
-                <li>Ultrasound</li>
-              </ul>
-    
-              <div class="work__links">
-                <a href="https://github.com/sihnat24/RAMBFF" target="_blank" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/sihnat24/RAMBFF" title="View Source Code" target="_blank">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/RAMBFF_example.png" class="work__image" alt="Project 2" />
-            </div>
-          </div>
-        
-        </div>
-      </div>
-    </section>
-    <section class="work" id="other-work">
-      <div class="row">
-        <h2>Professional Work</h2>
-        <div class="work__boxes">
-          
-          <!-- Inverted Microscope Automation -->
-          <div class="work__box">
-            <div class="work__text_prof">
-              <h3>Inverted Microscope Automation for Nidus MB Technologies</h3>
-              <p>
-                Designed and implemented a graphical user interface (GUI) and automated the movement of an inverted microscope using OpenCV and machine vision. 
-                Achieved full Z-axis automation and laid the groundwork for X-Y axis movement by integrating spatial mapping with live camera feeds. 
-                This project significantly enhanced efficiency and accuracy in microscopy workflows.
-              </p>
-              <ul class="work__list">
-                <li>Python</li>
-                <li>OpenCV</li>
-                <li>Machine Vision</li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Hamilton Liquid Handler Automation -->
-          <div class="work__box">
-            <div class="work__text_prof">
-              <h3>Hamilton Liquid Handler Automation for Regeneron</h3>
-              <p>
-                Created methods to automate laboratory workflows for adherent cell line development. Developed Python code to calculate 
-                concentration volumes and integrated it with GUI-based tools for efficient bioassay setup and execution.
-              </p>
-              <ul class="work__list">
-                <li>Python</li>
-                <li>Automation</li>
-                <li>Hamilton Liquid Handlers</li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Ultrasound Image Analysis -->
-          <div class="work__box">
-            <div class="work__text_prof">
-              <h3>Image Analysis for URMC In-Vivo Cancer Research Lab</h3>
-              <p>
-                Wrote MATLAB scripts to analyze slices of mouse tissue grafts. The code included image cleaning, volume measurements, and 
-                blood vessel analysis, helping researchers visualize and quantify tissue characteristics with precision.
-              </p>
-              <ul class="work__list">
-                <li>MATLAB</li>
-                <li>Image Analysis</li>
-                <li>Infrared Imaging</li>
-              </ul>
-            </div>
-          </div>
-    
-        </div>
-      </div>
-    </section>
-    
-
-    <!-- ***** Clients ***** -->
-
-    <section class="client" id="clients">
-      <div class="row">
-        <h2>Organizations</h2>
-        <div class="client__logos">
-          <img src="./images/regeneron.png" class="client__logo" alt="Company 2" />
-          <img src="./images/columbia.png" class="client__logo" alt="Company 3" />
-          <img src="./images/AQ_lab.png" class="client__logo" alt="Company 1" />
-          <img src="./images/URMC.png" class="client__logo" alt="Company 4" />
-        </div>
-      </div>
-    </section>
-
-    <!-- ***** About ***** -->
-
-    <section class="about" id="about">
-      <div class="row">
-        <h2>About Me</h2>
-        <div class="about__content">
-          <div class="about__text">
-            <p>
-            Hi! I'm a recent biomedical engineering graduate from the University of Rochester, 
-            now specializing in machine learning at Columbia University. Although I'm relatively 
-            new to CS, I've gained valuable coding experience during various professional roles and 
-            in my current role as a machine learning researcher at Columbia. I am most proficient in Python 
-            and am drawn to computer science because of its ability to rapidly create powerful 
-            and impactful tools. I'm excited to contribute to the field by combining my BME background 
-            with my growing expertise in CS and machine learning.
-            </p>
-            <a href="./assets/Sihnat_Computer_Science_Resume.pdf" class="btn" target="_blank" title="Download my resume in PDF format">My Resume</a>
-          </div>
-
-          <div class="about__photo-container">
-            <img class="about__photo" src="./images/selfie.jpg" alt="" />
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ***** Contact ***** -->
-  <section class="contact" id="contact">
-    <div class="row">
-      <h2>Get in Touch</h2>
-      <div class="contact__info">
-        <p>
-          Are you looking for someone eager to tackle new challenges in the field of machine learning and software 
-          development? I am proficient in Python and currently building my skills in Java and C through class projects. 
-          As someone new to the field but highly motivated to learn and grow, I am open to all kinds of work 
-          and opportunities. Feel free to reach out with questions, advice, or collaboration ideas—I would love 
-          to connect and contribute! The best way to contact me is via email.
-        </p>
-        <a href="mailto:si2471@columbia.edu" class="btn">si2471@columbia.edu</a>
-      </div>
-    </div>
-  </section>
-
- <!-- ***** Footer ***** -->
-
-<footer role="contentinfo" class="footer">
-  <div class="row">
-      <ul class="footer__social-links">
-          <li class="footer__social-link-item">
-              <a href="https://github.com/sihnat24" title="Link to Github Profile">
-                  <img src="./images/github.svg" class="footer__social-image" alt="Github">
-              </a>
-          </li>
-          <li class="footer__social-link-item">
-              <a href="https://www.linkedin.com/in/severin-ihnat/" title="Link to Linkedin Profile">
-                  <img src="./images/linkedin.svg" class="footer__social-image" alt="Linkedin">
-              </a>
-          </li>
-      </ul>
-      <a href="#top" class="back-to-top" title="Back to Top">
-          <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image">
-      </a>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag"><span class="hero-dot"></span>ML Engineer · Columbia MSCS '26 · New York</div>
+  <h1 class="hero-name">Severin<br /><em>Ihnat</em></h1>
+  <p class="hero-sub">Computer vision, continual learning, and data systems — built to run in production, not just notebooks.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-solid">See projects</a>
+    <a href="/resume.pdf" class="btn-ghost">Resume</a>
   </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap sec">
+    <p class="eyebrow reveal">About</p>
+    <h2 class="sec-title reveal rd1">Background</h2>
+    <div class="about-cols">
+      <div class="about-body reveal rd2">
+        <p>MSCS student at <strong>Columbia University</strong>, graduating May 2026. Undergraduate background in biomedical engineering at the University of Rochester — which means I think about models in terms of reliability and failure modes, not just benchmark numbers.</p>
+        <p>Currently doing research on <strong>continual active learning for protein-peptide binding prediction</strong>. Targeting full-time roles in defense ML and autonomy.</p>
+      </div>
+      <div class="about-skills reveal rd3">
+        <div class="sk-group">
+          <p class="sk-label">ML / AI</p>
+          <div class="sk-chips">
+            <span class="chip">PyTorch</span><span class="chip">YOLOv8</span>
+            <span class="chip">Transformers</span><span class="chip">W&amp;B</span>
+            <span class="chip">Active Learning</span>
+          </div>
+        </div>
+        <div class="sk-group">
+          <p class="sk-label">Systems</p>
+          <div class="sk-chips">
+            <span class="chip">Docker</span><span class="chip">SLURM</span>
+            <span class="chip">Linux</span><span class="chip">InfluxDB</span><span class="chip">HPC</span>
+          </div>
+        </div>
+        <div class="sk-group">
+          <p class="sk-label">Languages</p>
+          <div class="sk-chips">
+            <span class="chip">Python</span><span class="chip">C++</span>
+            <span class="chip">SQL</span><span class="chip">Bash</span><span class="chip">MATLAB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap sec">
+    <p class="eyebrow reveal">Projects</p>
+    <h2 class="sec-title reveal rd1">Selected work</h2>
+
+    <div class="featured-projects">
+
+      <div class="feat-card reveal">
+        <div class="feat-body">
+          <div>
+            <p class="feat-meta">Computer Vision · 2024–present</p>
+            <p class="feat-title">Drone Detection Pipeline</p>
+            <p class="feat-desc">YOLOv8 object detection trained on the VisDrone dataset. Built an agentic training loop that automates hyperparameter search, submits overnight runs, and logs results to W&amp;B — minimal manual intervention between experiments.</p>
+          </div>
+          <div class="feat-tags">
+            <span class="feat-tag">YOLOv8</span>
+            <span class="feat-tag">PyTorch</span>
+            <span class="feat-tag">W&amp;B</span>
+            <span class="feat-tag">VisDrone</span>
+          </div>
+        </div>
+        <div class="feat-img">
+          <!-- <img src="img/drone-detection.jpg" alt="YOLOv8 detection output on VisDrone frame" /> -->
+          <div class="feat-img-placeholder">
+            <div class="fip-icon">⬚</div>
+            <div class="fip-label">runs/detect/predict/</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card reveal rd1">
+        <div class="feat-body">
+          <div>
+            <p class="feat-meta">ML / Quant · 2024–present</p>
+            <p class="feat-title">Kalshi Prediction Market Bot</p>
+            <p class="feat-desc">Full-stack trading system for Kalshi prediction markets. WebSocket + REST ingestion pipeline stores tick data into InfluxDB. Strategy engine runs in Docker on a VPS; monitored live via Grafana.</p>
+          </div>
+          <div class="feat-tags">
+            <span class="feat-tag">Python</span>
+            <span class="feat-tag">Docker</span>
+            <span class="feat-tag">InfluxDB</span>
+            <span class="feat-tag">Grafana</span>
+            <span class="feat-tag">WebSocket</span>
+          </div>
+        </div>
+        <div class="feat-img">
+          <!-- <img src="img/grafana.png" alt="Grafana dashboard — live Kalshi data pipeline" /> -->
+          <div class="feat-img-placeholder">
+            <div class="fip-icon">⬚</div>
+            <div class="fip-label">Grafana screenshot</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card reveal rd2">
+        <div class="feat-body">
+          <div>
+            <p class="feat-meta">Research · Columbia · 2024–present</p>
+            <p class="feat-title">Continual Active Learning — Protein Binding</p>
+            <p class="feat-desc">Predicting protein-peptide binding affinity using continual active learning. Sweeps AL and CL budget proportions across GYF and WH1 domains. Runs on Columbia's Insomnia HPC cluster via SLURM; results visualized as coverage heatmaps.</p>
+          </div>
+          <div class="feat-tags">
+            <span class="feat-tag">PyTorch</span>
+            <span class="feat-tag">Active Learning</span>
+            <span class="feat-tag">SLURM / HPC</span>
+            <span class="feat-tag">Python</span>
+          </div>
+        </div>
+        <div class="feat-img">
+          <!-- <img src="img/cal-heatmap.png" alt="AL/CL budget sweep heatmap" /> -->
+          <div class="feat-img-placeholder">
+            <div class="fip-icon">⬚</div>
+            <div class="fip-label">Heatmap / W&amp;B run</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="listed-projects reveal rd3">
+      <p class="list-divider">Also</p>
+
+      <div class="proj-row">
+        <div>
+          <p class="pr-meta">NLP · 2024</p>
+          <p class="pr-title">Neural Arc-Standard Dependency Parser</p>
+          <p class="pr-desc">Transition-based dependency parser in PyTorch using the arc-standard system. Trained on CoNLL treebanks with feature-engineered transition classifiers.</p>
+          <div class="pr-tags"><span class="pr-tag">PyTorch</span><span class="pr-tag">NLP</span><span class="pr-tag">Python</span></div>
+        </div>
+        <span class="pr-arrow">↗</span>
+      </div>
+
+      <div class="proj-row">
+        <div>
+          <p class="pr-meta">Distributed Systems · 2024</p>
+          <p class="pr-title">Byzantine Validator Coordination</p>
+          <p class="pr-desc">Multi-agent RL framework modeling Byzantine validator behavior under Tendermint and BFT consensus protocols.</p>
+          <div class="pr-tags"><span class="pr-tag">Multi-Agent RL</span><span class="pr-tag">BFT / Tendermint</span><span class="pr-tag">Python</span></div>
+        </div>
+        <span class="pr-arrow">↗</span>
+      </div>
+
+      <div class="proj-row">
+        <div>
+          <p class="pr-meta">Lab Automation · Regeneron · 2023</p>
+          <p class="pr-title">Hamilton STAR Liquid Handler Pipelines</p>
+          <p class="pr-desc">Python automation for cell-splitting and serial dilution on Hamilton STAR systems, integrated with Cellario scheduling. Reduced manual steps ~60%.</p>
+          <div class="pr-tags"><span class="pr-tag">Python</span><span class="pr-tag">Hamilton STAR</span><span class="pr-tag">Cellario</span></div>
+        </div>
+        <span class="pr-arrow">↗</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap sec">
+    <p class="eyebrow reveal">Experience</p>
+    <h2 class="sec-title reveal rd1">Background</h2>
+    <div class="reveal rd2">
+      <div class="exp-row">
+        <div class="er-date">2024–present</div>
+        <div>
+          <p class="er-role">Graduate Research Assistant</p>
+          <p class="er-org">Columbia University — Zuckerman Institute</p>
+          <p class="er-desc">Building a continual active learning framework for protein-peptide binding prediction. Experiment scheduling via SLURM on Columbia's HPC cluster; sweeps AL/CL budget ratios across GYF and WH1 protein domains.</p>
+        </div>
+      </div>
+      <div class="exp-row">
+        <div class="er-date">Summer 2023</div>
+        <div>
+          <p class="er-role">Lab Automation Engineer — Intern</p>
+          <p class="er-org">Regeneron Pharmaceuticals</p>
+          <p class="er-desc">Python automation pipelines for Hamilton STAR liquid handlers (cell splitting, serial dilution). Integrated Cellario scheduling software. Reduced manual operator steps ~60%.</p>
+        </div>
+      </div>
+      <div class="exp-row">
+        <div class="er-date">2020–2023</div>
+        <div>
+          <p class="er-role">B.S. Biomedical Engineering</p>
+          <p class="er-org">University of Rochester · Alpha Eta Mu Beta Honor Society</p>
+          <p class="er-desc">Capstone projects in biomedical signal processing: blood oxygen saturation device and DAS beamforming array. Minor in computer science.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap sec">
+    <p class="eyebrow reveal">Contact</p>
+    <div class="contact-layout">
+      <div class="reveal rd1">
+        <h2 class="contact-head">Get in<br /><em>touch.</em></h2>
+        <p class="contact-copy">Open to full-time roles in defense ML, autonomy, and applied AI — starting May 2026.</p>
+      </div>
+      <div class="contact-links reveal rd2">
+        <a class="cl" href="mailto:si2471@columbia.edu">
+          <div><div class="cl-name">Email</div><div class="cl-sub">si2471@columbia.edu</div></div>
+          <span class="cl-arr">↗</span>
+        </a>
+        <a class="cl" href="https://linkedin.com/in/severinihnat" target="_blank">
+          <div><div class="cl-name">LinkedIn</div><div class="cl-sub">linkedin.com/in/severinihnat</div></div>
+          <span class="cl-arr">↗</span>
+        </a>
+        <a class="cl" href="https://github.com/severinihnat" target="_blank">
+          <div><div class="cl-name">GitHub</div><div class="cl-sub">github.com/severinihnat</div></div>
+          <span class="cl-arr">↗</span>
+        </a>
+        <a class="cl" href="/resume.pdf" target="_blank">
+          <div><div class="cl-name">Resume</div><div class="cl-sub">Download PDF</div></div>
+          <span class="cl-arr">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Severin Ihnat</p>
+  <p>New York City</p>
 </footer>
-<script src="./index.js"></script>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+  const obs = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }),
+    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
 </body>
 </html>
-
