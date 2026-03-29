@@ -13,5 +13,5 @@ AQ_lab.png - AQ Laboratory. (n.d.). GitHub. https://github.com/aqlaboratory
 
 # new citations
 
-https://www.rcsb.org/structure/1GYF
+https://www.rcsb.org/structure/1MVC
 

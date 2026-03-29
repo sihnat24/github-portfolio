@@ -29,6 +29,10 @@
         <span class="proj-tag">Grafana</span>
         <span class="proj-tag">WebSocket</span>
       </div>
+      <div style="margin-top: 1.5rem;">
+        <a class="btn-solid" href="https://github.com/sihnat24/ingestion-pipeline" target="_blank">GitHub →</a>
+        <p style="margin-top: 0.6rem; font-family: var(--fm); font-size: 0.68rem; color: var(--text-soft); letter-spacing: 0.04em;">Core infrastructure is open source. Strategy layer is private.</p>
+      </div>
     </div>
   </div>
 
@@ -37,9 +41,7 @@
       <p class="eyebrow reveal">Overview</p>
       <h2 class="sec-title reveal rd1">What it is <em>&amp; why</em></h2>
       <div class="body-text reveal rd2">
-        <p>Placeholder: a sentence describing what Kalshi is and why prediction markets are an interesting domain for automated trading.</p>
-        <p>Placeholder: a sentence on the full-stack nature of the system — from data ingestion to strategy execution to monitoring.</p>
-        <p>Placeholder: a sentence on the personal motivation for building this project.</p>
+        <p>Kalshi is a regulated prediction market exchange where participants trade contracts tied to real-world event outcomes, an unusual domain for automation because prices reflect crowd probability estimates rather than traditional asset dynamics. Prediction markets are smaller and less saturated than equity or crypto markets, making them a practical starting point for building algorithmic trading experience. This project is the data infrastructure layer: a persistent pipeline ingesting live market data with real-time visibility via Grafana, built as the foundation for a strategy layer currently in development.</p>
       </div>
     </div>
   </section>
@@ -49,9 +51,10 @@
       <p class="eyebrow reveal">Technical Approach</p>
       <h2 class="sec-title reveal rd1">Architecture &amp; <em>decisions</em></h2>
       <div class="body-text reveal rd2">
-        <p>Placeholder: a sentence on the data pipeline — WebSocket + REST ingestion and why InfluxDB was chosen as the time-series store.</p>
-        <p>Placeholder: a sentence on the strategy engine design, containerization with Docker, and VPS deployment.</p>
-        <p>Placeholder: a sentence on the Grafana monitoring setup and what metrics are tracked live.</p>
+        <p>The system is built around Python's asyncio. A WebSocket connection to Kalshi streams live orderbook deltas, which are queued and drained by a dedicated write worker, while REST polling runs concurrently for market snapshots and spot price data. This keeps ingestion and persistence decoupled so a slow write never blocks the live feed.</p>
+        <p>All data lands in InfluxDB, which we chose because it is a time series DB with simple Grafana integration. Three price sources are captured per asset: the Kalshi prediction market mid-price, the CoinGecko spot price, and the CF Benchmarks RTI settlement price. The last of these is the authoritative reference Kalshi uses for contract resolution, making it the critical anchor for any future strategy work. Orderbook deltas are stored with sequence numbers and write timestamps, enabling latency measurement between exchange event and database write.</p>
+        <p>The entire stack runs in Docker Compose and is deployed to a VPS for continuous 24/7 operation. The bot automatically rolls to the next active contract as each 15-minute market expires, requiring no manual intervention between sessions.</p>
+
       </div>
     </div>
   </section>
@@ -61,16 +64,22 @@
       <p class="eyebrow reveal">Results</p>
       <h2 class="sec-title reveal rd1">Outcomes &amp; <em>metrics</em></h2>
       <div class="body-text reveal rd2">
-        <p>Placeholder: a sentence with a concrete trading result or system uptime metric.</p>
-        <p>Placeholder: a sentence on what the live monitoring revealed that wasn't obvious during development.</p>
-        <p>Placeholder: a sentence on where the project is headed or what strategy improvements are in progress.</p>
+        <p>The pipeline ingests approximately 29 million orderbook deltas every six hours, roughly 1,350 writes per second and 1.2 million events per 15-minute contract window. Each window produces two streams, as Yes and No contracts are tracked independently. Figure 1 shows the live delta ingestion rate as visualized in Grafana, and Figure 2 shows the concurrent BTC market data feed sourced from CoinGecko's REST API, which returns a JSON payload covering price, volume, and broader market context. The system handles WebSocket disconnects and contract rollovers automatically, requiring no manual intervention. A heartbeat mechanism monitors the ingestion process continuously and restarts it if it goes down, ensuring the pipeline stays live around the clock.</p>
+        <p>Planned extensions include replacing the CoinGecko REST polling layer with a direct Kalshi WebSocket feed for real-time BTC price and candlestick data, bringing spot price ingestion in line with the low-latency orderbook pipeline. From there the focus shifts to building out a backtesting framework against the stored time-series data, followed by a live trading layer that can act on the signals the data exposes.</p>
       </div>
-      <div class="result-images reveal rd3">
-        <div class="result-img">
-          <img src="../img/grafana.png" alt="Grafana dashboard — live Kalshi data pipeline" />
+      <div class="result-images stacked reveal rd3" style="--img-scale: 100%">
+        <div class="result-img-wrap">
+          <div class="result-img">
+            <img src="../img/kalshi/delta graph.png" alt="Grafana dashboard — live Kalshi delta ingestion rate" />
+          </div>
+          <span class="result-img-caption">Fig 1 — Orderbook Delta Ingestion Dashboard</span>
         </div>
-        <div class="result-img">
-          <div class="result-img-placeholder"><div class="rip-label">P&amp;L chart</div></div>
+        <div class="result-img-wrap">
+          <div class="result-img">
+            <img src="../img/kalshi/btc graph.png" alt="Grafana dashboard — live BTC ingestion price" />
+            <div class="result-img-placeholder"><div class="rip-label">Fig 2 placeholder</div></div>
+          </div>
+          <span class="result-img-caption">Fig 2 — BTC Ingestion Dashboard</span>
         </div>
       </div>
     </div>

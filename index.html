@@ -98,7 +98,7 @@
     .feat-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.75; flex: 1; margin-bottom: 1.25rem; font-weight: 300; }
     .feat-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
     .feat-tag { font-family: var(--fm); font-size: 0.62rem; padding: 0.2rem 0.55rem; background: var(--accent-dim2); border: 1px solid var(--accent-dim); color: var(--accent); border-radius: 4px; letter-spacing: 0.03em; }
-    .feat-img { background: var(--bg3); border-left: 1px solid var(--border); overflow: hidden; aspect-ratio: 5 / 4; }
+    .feat-img { background: var(--bg3); border-left: 1px solid var(--border); overflow: hidden; }
     .feat-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
     .feat-img--kalshi { aspect-ratio: 1 / 1; }
     .feat-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 1.5rem; text-align: center; }
@@ -156,7 +156,7 @@
       nav, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
       .wrap { padding: 0 1.25rem; }
       .feat-card { grid-template-columns: 1fr; }
-      .feat-img { aspect-ratio: 5 / 4; border-left: none; border-top: 1px solid var(--border); }
+      .feat-img { aspect-ratio: 4 / 3; border-left: none; border-top: 1px solid var(--border); }
       .about-cols, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
       .exp-row { grid-template-columns: 1fr; gap: 0.25rem; }
       nav .nav-links li:nth-child(n+4) { display: none; }
@@ -264,59 +264,10 @@
 
     <div class="featured-projects">
 
-      <a class="feat-card reveal" href="/projects/drone.html">
+      <a class="feat-card reveal" href="/projects/cal.html">
         <div class="feat-body">
           <div>
-            <p class="feat-meta">Computer Vision · 2024–present</p>
-            <p class="feat-title">Drone Detection Pipeline</p>
-            <p class="feat-desc">Autonomous hyperparameter search pipeline for YOLOv8 on VisDrone — Claude Code iterates experiments, scores via a locked metric, and commits or reverts based on results..</p>
-          </div>
-          <div class="feat-tags">
-            <span class="feat-tag">YOLOv8</span>
-            <span class="feat-tag">PyTorch</span>
-            <span class="feat-tag">W&amp;B</span>
-            <span class="feat-tag">VisDrone</span>
-          </div>
-          <span class="feat-view">View project →</span>
-        </div>
-        <div class="feat-img">
-          <img src="img/visdrone ex.png" alt="YOLOv8 detection output on VisDrone frame" >
-          <div class="feat-img-placeholder">
-            <div class="fip-icon">⬚</div>
-            <div class="fip-label">runs/detect/predict/</div>
-          </div>
-        </div>
-      </a>
-
-      <a class="feat-card reveal rd1" href="/projects/kalshi.html">
-        <div class="feat-body">
-          <div>
-            <p class="feat-meta">ML / Quant · 2024–present</p>
-            <p class="feat-title">Kalshi Prediction Market Bot</p>
-            <p class="feat-desc">Full-stack trading system for Kalshi prediction markets. WebSocket + REST ingestion pipeline stores tick data into InfluxDB. Strategy engine runs in Docker on a VPS; monitored live via Grafana.</p>
-          </div>
-          <div class="feat-tags">
-            <span class="feat-tag">Python</span>
-            <span class="feat-tag">Docker</span>
-            <span class="feat-tag">InfluxDB</span>
-            <span class="feat-tag">Grafana</span>
-            <span class="feat-tag">WebSocket</span>
-          </div>
-          <span class="feat-view">View project →</span>
-        </div>
-        <div class="feat-img feat-img--kalshi">
-          <img src="img/grafana.png" alt="Grafana dashboard — live Kalshi data pipeline" />
-          <div class="feat-img-placeholder">
-            <div class="fip-icon">⬚</div>
-            <div class="fip-label">Grafana screenshot</div>
-          </div>
-        </div>
-      </a>
-
-      <a class="feat-card reveal rd2" href="/projects/cal.html">
-        <div class="feat-body">
-          <div>
-            <p class="feat-meta">Research · Columbia · 2024–present</p>
+            <p class="feat-meta">ML · Active Learning · 2024–present</p>
             <p class="feat-title">Continual Active Learning — Protein Binding</p>
             <p class="feat-desc">Predicting protein-peptide binding affinity using continual active learning. Sweeps AL and CL budget proportions across GYF and WH1 domains. Runs on Columbia's Insomnia HPC cluster via SLURM; results visualized as coverage heatmaps.</p>
           </div>
@@ -325,14 +276,64 @@
             <span class="feat-tag">Active Learning</span>
             <span class="feat-tag">SLURM / HPC</span>
             <span class="feat-tag">Python</span>
+            <span class="feat-tag">W&amp;B</span>
           </div>
           <span class="feat-view">View project →</span>
         </div>
         <div class="feat-img">
-          <img src="img/heatmap.png" alt="3D structure of GYF protein binding domain" />
+          <img src="img/cal/pbd.jpeg" alt="3D structure of GYF protein binding domain" />
           <div class="feat-img-placeholder">
             <div class="fip-icon">⬚</div>
             <div class="fip-label">Heatmap / W&amp;B run</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="feat-card reveal rd1" href="/projects/drone.html">
+        <div class="feat-body">
+          <div>
+            <p class="feat-meta">Computer Vision · 2024–present</p>
+            <p class="feat-title">Drone Detection Pipeline</p>
+            <p class="feat-desc">Autonomous hyperparameter search pipeline for YOLOv8 on VisDrone — Claude Code iterates experiments, scores via a locked metric, and commits or reverts based on results.</p>
+          </div>
+          <div class="feat-tags">
+            <span class="feat-tag">YOLOv8</span>
+            <span class="feat-tag">PyTorch</span>
+            <span class="feat-tag">VisDrone</span>
+          </div>
+          <span class="feat-view">View project →</span>
+        </div>
+        <div class="feat-img">
+          <img src="img/yolo/visdrone ex.png" alt="YOLOv8 detection output on VisDrone frame" >
+          <div class="feat-img-placeholder">
+            <div class="fip-icon">⬚</div>
+            <div class="fip-label">runs/detect/predict/</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="feat-card reveal rd2" href="/projects/kalshi.html">
+        <div class="feat-body">
+          <div>
+            <p class="feat-meta">Systems · Algorithmic Trading · 2024–present</p>
+            <p class="feat-title">Kalshi Prediction Market Bot</p>
+            <p class="feat-desc">A Dockerized data pipeline for Kalshi prediction markets, built as an exploration of algorithmic trading. Ingests live Bitcoin price data from Kalshi and CoinGecko, stores tick data in InfluxDB, and monitors system metrics via Grafana. Strategy and backtesting engine in development.</p>
+          </div>
+          <div class="feat-tags">
+            <span class="feat-tag">Python</span>
+            <span class="feat-tag">Docker</span>
+            <span class="feat-tag">InfluxDB</span>
+            <span class="feat-tag">Grafana</span>
+            <span class="feat-tag">WebSocket</span>
+            <span class="feat-tag">VPS</span>
+          </div>
+          <span class="feat-view">View project →</span>
+        </div>
+        <div class="feat-img feat-img--kalshi">
+          <img src="img/kalshi/market.png" alt="Grafana dashboard — live Kalshi data pipeline" />
+          <div class="feat-img-placeholder">
+            <div class="fip-icon">⬚</div>
+            <div class="fip-label">Grafana screenshot</div>
           </div>
         </div>
       </a>
@@ -380,7 +381,7 @@
 <section id="experience">
   <div class="wrap sec">
     <p class="eyebrow reveal">Experience</p>
-    <h2 class="sec-title reveal rd1">Background</h2>
+    <h2 class="sec-title reveal rd1">Professional Experience</h2>
     <div class="reveal rd2">
       <div class="exp-row">
         <div class="er-date">2024–present</div>

@@ -28,6 +28,9 @@
         <span class="proj-tag">W&amp;B</span>
         <span class="proj-tag">VisDrone</span>
       </div>
+      <div style="margin-top: 1.5rem;">
+        <a class="btn-solid" href="https://github.com/sihnat24/droneYOLOv8" target="_blank">GitHub →</a>
+      </div>
     </div>
   </div>
 
@@ -56,16 +59,36 @@
       <p class="eyebrow reveal">Results</p>
       <h2 class="sec-title reveal rd1">Outcomes &amp; <em>metrics</em></h2>
       <div class="body-text reveal rd2">
-        <p>Placeholder: a sentence with a concrete performance metric (mAP, precision, recall) achieved on the VisDrone benchmark.</p>
-        <p>Placeholder: a sentence describing what the agentic loop enabled that manual iteration wouldn't have.</p>
-        <p>Placeholder: a sentence on next steps or where the project is headed.</p>
+        <p>Across 20 experiments on the VisDrone2019-DET benchmark, the agentic loop improved the composite score (0.75 × recall + 0.25 × precision) from 0.0983 to 0.1133, a +15.3% gain, with recall rising from 0.075 to 0.089 and precision from 0.170 to 0.188, all within a fixed 10-epoch / 10%-data budget.</p>
+
+        <p>The agentic loop automated the full experiment cycle: modifying hyperparameters, running training, scoring the result, and committing or reverting the change based on performance. This made it practical to run 20 controlled experiments with consistent tracking, something that would be error-prone and tedious to manage manually. One concrete finding that emerged from this volume of trials is that data augmentation consistently hurt performance at this training scale, a result that would have been difficult to confirm without repeated controlled comparisons.</p>
+
+        <p>The loss curves (Figure 1) indicate the model is undertrained rather than mis-configured. Box loss, classification loss, and focal loss are all still decreasing with no sign of plateauing, suggesting that additional training epochs would continue to drive improvement.</p>
+
+        <p>Per-class analysis reveals meaningful variation in model behavior. Most classes follow a typical precision-recall tradeoff curve (Figure 2), but car is a notable exception: its curve rises before falling, indicating more stable detection across confidence thresholds. The per-class bar chart (Figure 3) confirms that car scores the highest overall and is the only class where recall exceeds precision. At the other end, awning-tricycle and bicycle score the lowest, likely due to their small apparent size in aerial imagery and relative underrepresentation in the 10% data fraction used for training.</p>
+
+        <p>Low detection confidence across validation images further supports the undertrained diagnosis. All experiments were run on an Apple M4, which constrained runs to 10 epochs at 10% of the full dataset. The project is now migrating to an NVIDIA RTX 3060 to remove that constraint and allow for substantially longer training runs.</p>
+
+        <p>The next step is to rerun the experiment suite at 50 epochs, using the best-performing 10-epoch configuration as the starting baseline. With a larger training budget, we expect per-class performance to improve broadly and for augmentation to transition from harmful to beneficial.</p>
       </div>
-      <div class="result-images reveal rd3">
-        <div class="result-img">
-          <img src="../img/visdrone ex.png" alt="YOLOv8 detection output on VisDrone frame" />
+      <div class="result-images stacked reveal rd3" style="--img-scale: 100%">
+        <div class="result-img-wrap">
+          <div class="result-img">
+            <img src="../img/yolo/box, cl, dfl curves.png" alt="Box, class, and DFL loss curves" />
+          </div>
+          <span class="result-img-caption">Fig 1 — Box, class, and DFL loss curves across training epochs</span>
         </div>
-        <div class="result-img">
-          <div class="result-img-placeholder"><div class="rip-label">W&amp;B run chart</div></div>
+        <div class="result-img-wrap">
+          <div class="result-img">
+            <img src="../img/yolo/pr curve.png" alt="Precision-recall curve" />
+          </div>
+          <span class="result-img-caption">Fig 2 — Precision-recall curve on VisDrone2019-DET validation set</span>
+        </div>
+        <div class="result-img-wrap">
+          <div class="result-img">
+           <img src="../img/yolo/pr per class.png" alt="Precision and recall per class" />
+          </div>
+          <span class="result-img-caption">Fig 3 — Precision and recall per class on VisDrone2019-DET validation set</span>
         </div>
       </div>
     </div>
