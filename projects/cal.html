@@ -37,9 +37,13 @@
       <p class="eyebrow reveal">Overview</p>
       <h2 class="sec-title reveal rd1">What it is <em>&amp; why</em></h2>
       <div class="body-text reveal rd2">
-        <p>Protein-peptide binding affinity (<em>K</em>d) measures how strongly a peptide binds to a target protein, and is a core quantity in computational drug discovery. Experimental measurement is expensive and time consuming, making it valuable to have models that can predict affinity from sequence alone.</p>
-        <p>The models trained on a single protein domain tend to perform well within that domain, but struggle when applied to new ones. Naively extending training to cover new domains degrades performance, so more principled approaches to generalization are needed. Tools that can reliably predict binding across many protein targets could broadly accelerate research in any domain where protein interactions play a role, offering a computationally cheap first pass before committing to expensive experimental validation.</p>
-        <p>This project explores continual active learning as a framework for adapting strong single-domain models to new protein domains, acquiring as few new labels as possible in the process. The GYF and WH1 domains serve as the primary testbed.</p>
+        <p>Protein-peptide binding affinity (Kd) measures how strongly a peptide binds to a target protein, and is a core quantity in computational drug discovery. Identifying which peptides bind to a given target has traditionally been a manual, low-throughput, and expensive process, making it difficult to explore large portions of the sequence space. Machine learning offers a way to predict these interactions computationally, allowing researchers to prioritize promising candidates before committing to experimental validation.</p>
+
+        <p>Protein domains are regions of a protein sequence where peptides tend to bind, and both can be represented as sequences of amino acids. Domains vary considerably in length, composition, and the types of sequences that bind to them, making each domain its own distinct prediction problem. The data available for any given domain also tends to be highly repetitive, as experimental studies often test the same domains and peptides, meaning that simply collecting more labeled examples does not always translate to more useful information.</p>
+
+        <p>Some protein domains are far better studied than others, with large bodies of experimental data available, while others remain relatively unexplored. If a model could learn to predict binding affinity in a general sense, researchers would not need to separately gather data and train dedicated models for each new domain they encounter. A model that generalizes well across domains could extend the benefits of computational screening to targets where experimental data is sparse, broadening the scope of what is tractable in early stage drug discovery.</p>
+
+        <p>This project investigates active learning techniques, which aim to reduce the number of labeled samples needed for training by selecting the most informative examples, alongside continual learning methods, which address the problem of forgetting. This research explores whether combining these two techniques can produce models that generalize across domains without requiring large amounts of labeled data for each new one encountered.</p>
     </div>
   </section>
 
@@ -48,9 +52,11 @@
       <p class="eyebrow reveal">Technical Approach</p>
       <h2 class="sec-title reveal rd1">Architecture &amp; <em>decisions</em></h2>
       <div class="body-text reveal rd2">
-       <p>The binding affinity predictor is built on an architecture adapted from a published model, extended to support generalization across multiple protein domains.</p>
-       <p>As illustrated in the figure below, the approach starts from a model already trained on one domain and fine-tunes it on a new target domain using active learning, which prioritizes the most informative new samples for labeling. At the same time, continual learning exposes the model to replay data from its original domain, helping it retain prior knowledge. Samples from both pools are selected either greedily or at random each round.</p>
-       <p>Experiments sweep over acquisition strategy, training duration, and the proportion of new versus replay data, all run on Columbia's high performance computing cluster.</p>
+      <p>The binding affinity predictor is built on an architecture adapted from a published model, extended to support generalization across multiple protein domains. The overall training loop is illustrated in the figure below.</p>
+
+      <p>The approach begins with a model pretrained on one domain, alongside two separate data pools: one for the new target domain and one for the original domain. Each round, an acquisition function scores and selects the most informative samples from each pool, with the target domain samples chosen to guide adaptation and the original domain samples serving as replay data to help the model retain prior knowledge. The selected samples are combined with all previously selected data to update the model weights, then removed from their respective pools, and the process repeats.</p>
+
+      <p>Experiments vary parameters such as acquisition strategy, training duration, and the proportion of new versus replay data, and more, all run on Columbia's high performance computing cluster.</p>
       </div>
     </div>
   </section>
